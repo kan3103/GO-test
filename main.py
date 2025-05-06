@@ -16,7 +16,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu") # use gpu 
 from torchvision import models
 
 
-model = models.resnet50(weights=models.ResNet50_Weights.DEFAULT)
+model = models.resnet50()
 
 # If you want to do finetuning then set requires_grad = False
 # Remove these two lines if you want to train entire model,
