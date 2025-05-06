@@ -11,12 +11,12 @@ from PIL import Image
 from io import BytesIO
 
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu") # use gpu or cpu
+device = torch.device("cpu") # use gpu or cpu
 
 from torchvision import models
 
 
-model = models.resnet50()
+model = models.resnet50(...)
 
 # If you want to do finetuning then set requires_grad = False
 # Remove these two lines if you want to train entire model,
