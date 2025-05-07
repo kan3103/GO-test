@@ -30,8 +30,12 @@ def load_model():
 model = load_model()
 
 # Hàm dự đoán ảnh
-def RandomImagePrediction(contents):
-    img_array = Image.open(BytesIO(contents)).convert("RGB")
+def RandomImagePrediction(uploaded_file):
+    try:
+        img_array = Image.open(uploaded_file).convert("RGB")
+    except Exception as e:
+        return f"Lỗi khi đọc ảnh: {e}"
+
     data_transforms = transforms.Compose([
         transforms.Resize((224, 224)), 
         transforms.ToTensor(), 
@@ -48,7 +52,8 @@ def RandomImagePrediction(contents):
             return "🐶 Chó"
         else:
             return "🐱 Mèo"
-    return "Lỗi"
+    return "Lỗi không xác định"
+
 
 # Giao diện Streamlit
 st.title("📸 Phân loại Chó hoặc Mèo")
@@ -58,5 +63,7 @@ if uploaded_file is not None:
     image = Image.open(uploaded_file).convert("RGB")
     st.image(image, caption="Ảnh đã tải lên", use_column_width=True)
 
-    prediction = RandomImagePrediction(uploaded_file.read())
+    # Đưa lại uploaded_file vào hàm
+    uploaded_file.seek(0)  # Reset pointer trước khi đọc lại
+    prediction = RandomImagePrediction(uploaded_file)
     st.markdown(f"### 👉 Dự đoán: **{prediction}**")
