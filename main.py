@@ -21,7 +21,7 @@ def load_model():
     model.fc = nn.Linear(num_ftrs, 2)
     model.to(device)
 
-    checkpoint = torch.load("./checkpoint_epoch_4.pt", map_location=device)
+    checkpoint = torch.load("checpoint_epoch_4.pt", map_location=device)
     model.load_state_dict(checkpoint['model_state_dict'])
     model.eval()
 
